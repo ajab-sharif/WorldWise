@@ -56,6 +56,20 @@ function CitiesProvider({ children }) {
     }
   }
 
+  async function deleteCity(id) {
+    try {
+      setIsLoading(true);
+      await fetch(`${BASE_URL}/cities/${id}`, {
+        method: "DELETE",
+      });
+      setCities((cities) => cities.filter((city) => city.id !== Number(id)));
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   // 2) Provide value to the child components
 
   return (
@@ -66,6 +80,7 @@ function CitiesProvider({ children }) {
         getCity,
         currentCity,
         createCity,
+        deleteCity,
       }}
     >
       {children}
