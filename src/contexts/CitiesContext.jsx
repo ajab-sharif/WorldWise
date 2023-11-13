@@ -38,6 +38,24 @@ function CitiesProvider({ children }) {
     }
   }
 
+  async function createCity(newCity) {
+    try {
+      setIsLoading(true);
+      const res = await fetch(`${BASE_URL}/cities`, {
+        method: "POST",
+        body: JSON.stringify(newCity),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      setCities((cities) => [...cities, data]);
+      setCurrentCity(data);
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   // 2) Provide value to the child components
 
   return (
@@ -47,6 +65,7 @@ function CitiesProvider({ children }) {
         isLoading,
         getCity,
         currentCity,
+        createCity,
       }}
     >
       {children}

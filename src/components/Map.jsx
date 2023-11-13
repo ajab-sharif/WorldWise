@@ -86,7 +86,6 @@ function DetectClick() {
   useMapEvent("click", (e) => {
     // 73930385?lat=38.727881642324164&lng=-9.140900099907554
     navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`);
-    console.log(e);
   });
 }
 export default Map;
